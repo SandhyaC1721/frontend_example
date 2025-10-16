@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    
+    <style>
+        /* Simple page styles */
+        body {
+            font-family: sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        /* The main white card */
+        .task-manager-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            border: 1px solid #ddd; /* Simplified border */
+        }
+
+        /* "Task Manager" title */
+        h1 {
+            text-align: center;
+            color: #0d6efd; /* Blue color */
+            margin-top: 0;
+        }
+
+        /* Form styling */
+        #task-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Text input field */
+        #task-input {
+            flex-grow: 1; /* Takes up available space */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* "Add Task" button */
+        #task-form button {
+            padding: 10px 15px;
+            background-color: #0d6efd; /* Blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Task list */
+        #task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Each task item */
+        #task-list li {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Task text */
+        #task-list li .task-text {
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+        
+        /* Styling for completed tasks */
+        #task-list li.completed .task-text {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        /* "Remove" button */
+        #task-list li .remove-btn {
+            background-color: #dc3545; /* Red */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="task-manager-container">
+        <h1>Task Manager</h1>
+        
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="What needs to be done?">
+            <button type="submit">Add Task</button>
+        </form>
+        
+        <ul id="task-list">
+            </ul>
+    </div>
+
+    <script>
+        // Get the HTML elements we need
+        const taskForm = document.getElementById('task-form');
+        const taskInput = document.getElementById('task-input');
+        const taskList = document.getElementById('task-list');
+
+        // Add an event listener to the form
+        taskForm.addEventListener('submit', function(event) {
+            // Stop the page from reloading when the form is submitted
+            event.preventDefault(); 
+            
+            // Get the text from the input box and remove extra spaces
+            const taskText = taskInput.value.trim();
+
+            // If the input is not empty, add the task
+            if (taskText !== '') {
+                
+                // 1. Create the new list item (<li>)
+                const li = document.createElement('li');
+
+                // 2. Create the checkbox
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                // Add click event to the checkbox
+                checkbox.addEventListener('change', function() {
+                    // Toggle the 'completed' style on the list item
+                    li.classList.toggle('completed');
+                });
+
+                // 3. Create the span for the task text
+                const span = document.createElement('span');
+                span.classList.add('task-text');
+                span.textContent = taskText;
+
+                // 4. Create the "Remove" button
+                const removeBtn = document.createElement('button');
+                removeBtn.classList.add('remove-btn');
+                removeBtn.textContent = 'Remove';
+                // Add click event to the remove button
+                removeBtn.addEventListener('click', function() {
+                    // Remove the entire list item
+                    li.remove(); 
+                });
+
+                // 5. Add the checkbox, text, and button to the list item
+                li.appendChild(checkbox);
+                li.appendChild(span);
+                li.appendChild(removeBtn);
+
+                // 6. Add the new list item to the task list on the page
+                taskList.appendChild(li);
+
+                // 7. Clear the input box for the next task
+                taskInput.value = '';
+            }
+        });
+    </script>
+
+</body>
+</html>
