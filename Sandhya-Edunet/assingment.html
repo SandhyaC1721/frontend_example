@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+     <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+        .task-manager-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            border: 1px solid #ddd; 
+        }
+        h1 {
+            text-align: center;
+            color: #0d6efd; 
+            margin-top: 0;
+        }
+        #task-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #task-input {
+            flex-grow: 1; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #task-form button {
+            padding: 10px 15px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #task-list li {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        #task-list li .task-text {
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+        #task-list li.completed .task-text {
+            text-decoration: line-through;
+            color: #888;
+        }
+        #task-list li .remove-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+  <div class="task-manager-container">
+        <h1>Task Manager</h1>
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="What needs to be done?">
+            <button type="submit">Add Task</button>
+        </form>
+        <ul id="task-list">
+            </ul>
+    </div>
+    <script>
+        const taskForm = document.getElementById('task-form');
+        const taskInput = document.getElementById('task-input');
+        const taskList = document.getElementById('task-list');
+        taskForm.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                
+                const li = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.addEventListener('change', function() {
+                    li.classList.toggle('completed');
+                });
+                const span = document.createElement('span');
+                span.classList.add('task-text');
+                span.textContent = taskText;
+                const removeBtn = document.createElement('button');
+                removeBtn.classList.add('remove-btn');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    li.remove(); 
+                });
+                li.appendChild(checkbox);
+                li.appendChild(span);
+                li.appendChild(removeBtn);
+                taskList.appendChild(li);
+                taskInput.value = '';
+            }
+        });
+    </script>
+
+</body>
+</html>
