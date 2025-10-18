@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <br>
+     <input type="text" name="" id="fnum" placeholder="enter first number">
+     <br>
+      <input type="text" name="" id="snum" placeholder="enter second number">
+      <br>
+    <input type="submit" value="click here" onclick="add()">
+    
+    <br>
+    <input type="text" id="result">
+    <script>
+        const funadd=() =>
+        {
+          fn=document.getElementById("fnum").value;
+          sn=document.getElementById("snum").value;
+       let sum=fnum+snum;
+          document.getElementById("result").value=parseInt(fn)+parseInt(sn);
+        }
+        function calladd()
+        {
+            let result =funadd(5,10);
+            console.log("tjhe sum is"+result);
+        }
+        
+ 
+    </script>
+</body>
+</html>
